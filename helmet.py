@@ -6,7 +6,7 @@ import struct
 WIDTH = 10
 HEIGHT = 30
 
-s = serial.Serial("COM5", baudrate=115200)
+s = serial.Serial("COM5", baudrate=115200, timeout=1)
 
 img = cv.imread("kek.png")
 img = cv.resize(img, (WIDTH,  HEIGHT))
@@ -16,7 +16,7 @@ while True:
         for pix in row:
             msg = struct.pack("BBB", pix[2], pix[1], pix[0])
             s.write(msg)
-
+    s.read()
 
     cv.imshow("Image", img)
     cv.waitKey(1)
